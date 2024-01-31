@@ -1,3 +1,5 @@
+<!-- All Graphs -->
+
 <template>
     <div class="grid grid-cols-2 gap-2">
         <div class="bg-gray-200 rounded-md shadow-md">
@@ -76,6 +78,7 @@ export default {
                         text: 'Jumlah Penduduk'
                     }
                 },
+                // Untuk data
                 series: [
                     {
                         name: 'Pria',
@@ -143,6 +146,7 @@ export default {
                         text: 'Jumlah Penduduk'
                     }
                 },
+                // Untuk data
                 series: [
                     {
                         name: 'Pria',
@@ -198,7 +202,6 @@ export default {
                         )
                         return 'something'
                     }
-
                 },
                 plotOptions: {
                     column: {
@@ -216,6 +219,7 @@ export default {
                         text: 'Jumlah Penduduk'
                     }
                 },
+                // Untuk data
                 series: [
                     {
                         name: 'Pria',
@@ -255,6 +259,7 @@ export default {
                         }
                     }
                 },
+                // Untuk data
                 series: [
                     {
                         name: 'Jumlah',

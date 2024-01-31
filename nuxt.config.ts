@@ -27,7 +27,7 @@ export default defineNuxtConfig({
   modules: [
     ['nuxt-highcharts', { 
       setOptions: {
-        colors: ['#FF9843', '#86A7FC', '#FFDD95', '#3468C0'],
+        colors: ['#86A7FC', '#FF9843', '#3468C0', '#FFDD95'],
         chart: {
           backgroundColor: 'transparent'
         },
