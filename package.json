@@ -20,6 +20,9 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@nuxt/http": "^0.6.4",
+    "axios": "^1.6.7",
+    "node-fetch": "^3.3.2",
     "nuxt-highcharts": "^3.1.1"
   }
 }
