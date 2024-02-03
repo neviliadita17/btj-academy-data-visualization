@@ -13,13 +13,15 @@ export default {
     data() {
         return {
             chartMultipleAxisOptions: {
-                chart: {},
+                chart: {
+                    height: '55%'
+                },
                 title: {
-                    text: 'Data Kependudukan Indonesia tahun 2023',
+                    text: '',
                     align: 'center'
                 },
                 subtitle: {
-                    text: 'Data Jumlah Penduduk per Provinsi',
+                    text: '',
                     align: 'center'
                 },
                 legend: {
@@ -29,7 +31,7 @@ export default {
                     reversed: false,
                 },
                 tooltip: {
-                    shared: true,
+                    shared: true,                  
                 },
                 yAxis: [
                     {
@@ -67,17 +69,6 @@ export default {
                         dashStyle: 'shortdot',
                         data: []
                     },
-                    // {
-                    //     name: 'Total',
-                    //     type: 'pie',
-                    //     size: 120,
-                    //     center: [50, 44],
-                    //     innerSize: '50%',
-                    //     dataLabels: {
-                    //         enabled: false
-                    //     },
-                    //     data: []
-                    // }
                 ],
                 xAxis: {
                     categories: [],
@@ -85,6 +76,7 @@ export default {
                         text: 'Provinsi'
                     }
                 }, 
+                
             }
         };
     },
@@ -92,17 +84,28 @@ export default {
     async created() {
         try {
             const response = await axios.get('https://api-e-database.kemendagri.go.id/api/dukcapil_jumlah_penduduk_prov/51F890E2DF?tahun=2023');
-
             const data = response.data.data;
+
+            this.chartMultipleAxisOptions.title.text = `Data Kependudukan Indonesia tahun ${data[0].tahun}`;
+            this.chartMultipleAxisOptions.subtitle.text = `Data Jumlah Penduduk per Provinsi - Semester ${data[0].semester}`;
+
 
             const chartData = data.map((item) => ({
                 name: item.prov,
                 jumlahPenduduk: parseFloat(item.jumlah_penduduk),
                 jumlahPendudukKm2: parseFloat(item.jumlah_penduduk_km2),
+                tahun: item.tahun,
+                semester: item.semester,
             }));
 
-            this.chartMultipleAxisOptions.series[0].data = chartData.map(item => item.jumlahPenduduk);
-            this.chartMultipleAxisOptions.series[1].data = chartData.map(item => item.jumlahPendudukKm2);
+            this.chartMultipleAxisOptions.series[0].data = chartData.map(item => ({
+                y: item.jumlahPenduduk,
+                name: `${item.name}, ${item.tahun}, Semester ${item.semester}`
+            }));
+            this.chartMultipleAxisOptions.series[1].data = chartData.map(item => ({
+                y: item.jumlahPendudukKm2,
+                name: `${item.name}, ${item.tahun}, Semester ${item.semester}`
+            }));
             this.chartMultipleAxisOptions.xAxis.categories = chartData.map(item => item.name);
         } catch (error) {
             console.error('Error fetching data:', error);
